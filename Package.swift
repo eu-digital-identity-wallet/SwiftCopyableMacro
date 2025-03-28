@@ -12,10 +12,6 @@ let package = Package(
     .library(
       name: "Copyable",
       targets: ["Copyable"]
-    ),
-    .plugin(
-      name: "CopyableMacroPlugin",
-      targets: ["CopyableMacroPlugin"]
     )
   ],
   dependencies: [
@@ -23,7 +19,7 @@ let package = Package(
   ],
   targets: [
     .target(
-      name: "CopyableMacros",
+      name: "CopyableMacro",
       dependencies: [
         .product(name: "SwiftSyntax", package: "swift-syntax"),
         .product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
@@ -33,7 +29,7 @@ let package = Package(
     .macro(
       name: "CopyableMacroPlugin",
       dependencies: [
-        "CopyableMacros",
+        "CopyableMacro",
         .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
       ]
     ),
@@ -44,7 +40,7 @@ let package = Package(
     .testTarget(
       name: "CopyableMacroTests",
       dependencies: [
-        "CopyableMacros",
+        "CopyableMacro",
         .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax")
       ],
       path: "Tests"

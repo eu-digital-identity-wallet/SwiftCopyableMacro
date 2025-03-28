@@ -15,7 +15,7 @@
  */
 import XCTest
 import SwiftSyntaxMacrosTestSupport
-@testable import CopyableMacros
+@testable import CopyableMacro
 
 final class TestCopyableMacro: XCTestCase {
   
