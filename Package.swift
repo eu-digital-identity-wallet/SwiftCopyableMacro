@@ -12,6 +12,10 @@ let package = Package(
     .library(
       name: "Copyable",
       targets: ["Copyable"]
+    ),
+    .plugin(
+      name: "CopyableMacroPlugin",
+      targets: ["CopyableMacroPlugin"]
     )
   ],
   dependencies: [
