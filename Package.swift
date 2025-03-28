@@ -19,7 +19,7 @@ let package = Package(
   ],
   targets: [
     .macro(
-      name: "CopyableMacro",
+      name: "CopyablePlugin",
       dependencies: [
         .product(name: "SwiftSyntax", package: "swift-syntax"),
         .product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
@@ -29,7 +29,18 @@ let package = Package(
     ),
     .target(
       name: "Copyable",
-      dependencies: ["CopyableMacro"]
+      dependencies: ["CopyablePlugin"]
+    ),
+    .testTarget(
+      name: "CopyablePluginTests",
+      dependencies: [
+        "CopyablePlugin",
+        .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax")
+      ],
+      path: "Tests",
+      swiftSettings: [
+        .define("MACRO_TESTING")
+      ]
     )
   ]
 )
