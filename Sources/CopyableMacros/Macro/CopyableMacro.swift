@@ -70,7 +70,19 @@ public struct CopyableMacro: MemberMacro {
 
     // Combined copy creation
     let parameterListString = bindings
-      .map { binding in "\(binding.pattern): \(binding.typeAnnotation?.type.trimmed ?? "?")? = nil" }
+      .map { binding in
+        
+        guard let type = binding.typeAnnotation?.type.trimmed else {
+            return "\(binding.pattern): ? /* unknown type */"
+        }
+
+        let isOptional = type.is(OptionalTypeSyntax.self)
+        let typeText = type.description.trimmingCharacters(in: .whitespaces)
+
+        let finalType = isOptional ? typeText : "\(typeText)?"
+
+        return "\(binding.pattern): \(finalType) = nil"
+      }
       .joined(separator: ", ")
 
     declSyntax.append(
