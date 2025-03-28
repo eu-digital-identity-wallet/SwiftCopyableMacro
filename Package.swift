@@ -18,32 +18,18 @@ let package = Package(
     .package(url: "https://github.com/swiftlang/swift-syntax.git", from: "509.0.0")
   ],
   targets: [
-    .target(
+    .macro(
       name: "CopyableMacro",
       dependencies: [
         .product(name: "SwiftSyntax", package: "swift-syntax"),
         .product(name: "SwiftSyntaxBuilder", package: "swift-syntax"),
-        .product(name: "SwiftSyntaxMacros", package: "swift-syntax")
-      ]
-    ),
-    .macro(
-      name: "CopyableMacroPlugin",
-      dependencies: [
-        "CopyableMacro",
+        .product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
         .product(name: "SwiftCompilerPlugin", package: "swift-syntax")
       ]
     ),
     .target(
       name: "Copyable",
-      dependencies: ["CopyableMacroPlugin"]
-    ),
-    .testTarget(
-      name: "CopyableMacroTests",
-      dependencies: [
-        "CopyableMacro",
-        .product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax")
-      ],
-      path: "Tests"
+      dependencies: ["CopyableMacro"]
     )
   ]
 )

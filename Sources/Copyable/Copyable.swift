@@ -15,4 +15,4 @@
  */
 
 @attached(member, names: named(copy))
-public macro Copyable() = #externalMacro(module: "CopyableMacroPlugin", type: "CopyableMacro")
+public macro Copyable() = #externalMacro(module: "CopyableMacro", type: "CopyableMacro")
