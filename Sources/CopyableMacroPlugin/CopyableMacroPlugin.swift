@@ -15,7 +15,7 @@
  */
 import SwiftCompilerPlugin
 import SwiftSyntaxMacros
-import CopyableMacros
+import CopyableMacro
 
 @main
 struct CopyablePlugin: CompilerPlugin {
