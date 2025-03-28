@@ -15,10 +15,11 @@
  */
 import SwiftCompilerPlugin
 import SwiftSyntaxMacros
+import CopyableMacros
 
 @main
 struct CopyablePlugin: CompilerPlugin {
-  let providingMacros: [Macro.Type] = [
-    CopyableMacro.self
-  ]
+    let providingMacros: [Macro.Type] = [
+        CopyableMacro.self
+    ]
 }
