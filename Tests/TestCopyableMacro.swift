@@ -65,6 +65,46 @@ final class TestCopyableMacro: XCTestCase {
 #endif
   }
   
+  func testExpansion_WhenVisibilityIsInternalAndNoOptionalsAndThereIsAStaticToken_ThenAssertResult() throws {
+#if canImport(CopyablePlugin)
+    assertMacroExpansion(
+            """
+            @Copyable
+            struct User {
+                static let type: String = "Registered"
+                let name: String
+                let age: Int
+            }
+            """,
+            expandedSource: """
+            struct User {
+                static let type: String = "Registered"
+                let name: String
+                let age: Int
+            
+                /// Returns a copy of the caller whose value for `name` is different.
+                internal func copy(name: String) -> Self {
+                    .init(name: name, age: age)
+                }
+            
+                /// Returns a copy of the caller whose value for `age` is different.
+                internal func copy(age: Int) -> Self {
+                    .init(name: name, age: age)
+                }
+            
+                /// Returns a copy of the caller whose values are different. All values are optional and the previous value will be used if not set.
+                internal func copy(name: String? = nil, age: Int? = nil) -> Self {
+                    .init(name: name ?? self.name, age: age ?? self.age)
+                }
+            }
+            """,
+            macros: testMacros
+    )
+#else
+    throw XCTSkip("macros are only supported when running tests for the host platform")
+#endif
+  }
+  
   func testExpansion_WhenVisibilityIsPublicAndNoOptionals_ThenAssertResult() throws {
 #if canImport(CopyablePlugin)
     assertMacroExpansion(
