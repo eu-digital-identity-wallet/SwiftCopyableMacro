@@ -23,4 +23,8 @@ extension DeclModifierListSyntax {
     self.map(\.name.text)
       .first(where: { Self.visibilityModifiers.contains($0) })
   }
+
+  var isStatic: Bool {
+    self.contains { $0.name.tokenKind == .keyword(.static) }
+  }
 }

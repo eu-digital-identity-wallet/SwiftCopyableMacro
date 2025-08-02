@@ -38,6 +38,7 @@ public struct CopyableMacro: MemberMacro {
 
     let variables = structDeclSyntax.memberBlock.members
       .compactMap { $0.decl.as(VariableDeclSyntax.self) }
+      .filter { !$0.modifiers.isStatic }
       .filter { $0.bindings.allSatisfy { accessorIsAllowed($0.accessorBlock?.accessors) } }
 
     let bindings = variables.flatMap(\.bindings)
