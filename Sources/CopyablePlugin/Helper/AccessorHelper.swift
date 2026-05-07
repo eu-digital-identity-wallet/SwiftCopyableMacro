@@ -26,5 +26,7 @@ func accessorIsAllowed(_ accessor: AccessorBlockSyntax.Accessors?) -> Bool {
     }
   case .getter:
     false
+  @unknown default:
+    true
   }
 }
