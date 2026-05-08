@@ -19,14 +19,14 @@ func accessorIsAllowed(_ accessor: AccessorBlockSyntax.Accessors?) -> Bool {
 
   guard let accessor else { return true }
 
-  switch accessor {
+  return switch accessor {
   case .accessors(let accessorDeclListSyntax):
-    return !accessorDeclListSyntax.contains {
+    !accessorDeclListSyntax.contains {
       $0.accessorSpecifier.text == "get" || $0.accessorSpecifier.text == "set"
     }
   case .getter:
-    return false
+    false
   @unknown default:
-    return true
+    true
   }
 }
